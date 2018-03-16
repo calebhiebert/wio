@@ -1,0 +1,43 @@
+{
+	"sensors": [
+		{
+			"name": "GroveBaroBMP280I2C0",
+			"actions": [
+				{
+					"name": "temperature",
+					"dataProp": "temperature"
+				},
+				{
+					"name": "altitude",
+					"dataProp": "altitude"
+				},
+				{
+					"name": "pressure",
+					"dataProp": "pressure"
+				}
+			]
+		},
+		{
+			"name": "GroveMoistureA0",
+			"actions": [
+				{
+					"name": "moisture",
+					"dataProp": "moisture"
+				}
+			]
+    },
+    {
+      "name": "GroveTempHumD0",
+      "actions": [
+        {
+          "name": "humidity",
+          "dataProp": "humidity"
+        },
+        {
+          "name": "temperature",
+          "dataProp": "celsius_degree"
+        }
+      ]
+    }
+	]
+}
