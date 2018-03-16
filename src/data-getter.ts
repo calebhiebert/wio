@@ -1,6 +1,7 @@
 import * as r from 'request-promise';
 import retry = require('promise-retry');
 import { setTimeout } from 'timers';
+import * as Influx from 'influx';
 
 export class DataGetter {
 	private sensor: string;
@@ -9,18 +10,20 @@ export class DataGetter {
 
 	private timeout: any;
 	private lastRetrieved: number = 0;
+	private influx: Influx.InfluxDB;
 
-	constructor(sensor: string, action: string, dataProp: string) {
+	constructor(sensor: string, action: string, dataProp: string, influx: Influx.InfluxDB) {
 		this.sensor = sensor;
 		this.action = action;
 		this.dataProp = dataProp;
+		this.influx = influx;
 	}
 
-	public start() {
+	public async start() {
 		this.getData();
 	}
 
-	public stop() {
+	public async stop() {
 		if (this.timeout !== null && this.timeout !== undefined) {
 			clearTimeout(this.timeout);
 		}
@@ -44,10 +47,15 @@ export class DataGetter {
 					}?access_token=${process.env.WIO_ACCESS_TOKEN}`,
 					json: true,
 				})
+					.then(async (result) => {
+						await this.writeData(this.dataProp, result[this.dataProp]);						
+						return result;
+					})
 					.then((result) => {
 						console.log(
 							`[${this.sensor}:${this.action}]: ${result[this.dataProp]}`,
 						);
+
 						return result;
 					})
 					.catch((err) => {
@@ -61,5 +69,19 @@ export class DataGetter {
 		} else {
 			this.timeout = setTimeout(() => this.getData(), timeToNext);
 		}
+	}
+
+	private writeData(measurement: string, data: any) {
+		let fields: any = {};
+
+		fields[measurement] = data;
+
+		this.influx.writePoints([
+			{
+				measurement,
+				tags: { device: 'node' },
+				fields,
+			},
+		]);
 	}
 }

@@ -273,6 +273,10 @@ http-signature@~1.2.0:
     jsprim "^1.2.2"
     sshpk "^1.7.0"
 
+influx@^5.0.7:
+  version "5.0.7"
+  resolved "https://registry.yarnpkg.com/influx/-/influx-5.0.7.tgz#35e65f6bf13cbaa1763108b5596a806a727a529a"
+
 is-arrayish@^0.2.1:
   version "0.2.1"
   resolved "https://registry.yarnpkg.com/is-arrayish/-/is-arrayish-0.2.1.tgz#77c99840527aa8ecb1a8ba697b80645a7a926a9d"
@@ -515,6 +519,10 @@ tunnel-agent@^0.6.0:
 tweetnacl@^0.14.3, tweetnacl@~0.14.0:
   version "0.14.5"
   resolved "https://registry.yarnpkg.com/tweetnacl/-/tweetnacl-0.14.5.tgz#5ae68177f192d4456269d108afa93ff8743f4f64"
+
+typescript@^2.7.2:
+  version "2.7.2"
+  resolved "https://registry.yarnpkg.com/typescript/-/typescript-2.7.2.tgz#2d615a1ef4aee4f574425cdff7026edf81919836"
 
 uuid@^3.1.0:
   version "3.2.1"
