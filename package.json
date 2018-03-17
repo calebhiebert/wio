@@ -5,7 +5,8 @@
   "author": "Caleb Hiebert <calebkhiebert@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "start": "ts-node -r dotenv/config src/main.ts"
+    "start": "ts-node -r dotenv/config src/main.ts",
+    "run": "node dist/main.js"
   },
   "dependencies": {
     "@types/load-json-file": "^2.0.7",

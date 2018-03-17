@@ -1,23 +1,36 @@
 import * as jsonLoader from 'load-json-file';
 import { DataGetter } from './data-getter';
 import { InfluxDB } from 'influx/lib/src';
+import retry = require('promise-retry');
 
 let config: any;
 let influx: InfluxDB;
 const dataGetters: DataGetter[] = [];
 
+async function connectInflux(): Promise<string[]> {
+	influx = new InfluxDB({
+		host: process.env.INFLUX || 'localhost',
+		database: 'sensors',
+		port: 8086,
+		username: 'sensors',
+		password: 'sensors',
+	});
+
+	return influx.getDatabaseNames();
+}
+
 async function start() {
 	try {
-		console.log(`[INFLUX] Connecting`);
-		influx = new InfluxDB({
-			host: process.env.INFLUX || 'localhost',
-			database: 'sensors',
-			port: 8086,
-		});
-
 		config = await jsonLoader(process.env.CONFIG_LOCATION || 'sensors.json');
 
-		const dbNames = await influx.getDatabaseNames();
+		const dbNames = await retry(async (retry, number) => {
+			console.log('Connecting try ' + number);
+
+			return connectInflux()
+				.catch((err) => {
+					retry(err);
+				});
+		});
 
 		console.log(`[INFLUX]: Database names ${dbNames}`);
 
