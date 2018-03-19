@@ -3,8 +3,8 @@ services:
   collector:
     build: .
     environment:
-      - WIO_ACCESS_TOKEN=f6149b5bf8c97461ee2adf0731caf995
-      - WIO_SERVER_URL=https://us.wio.seeed.io/v1/node
+      - WIO_ACCESS_TOKEN
+      - WIO_SERVER_URL
       - MS_BETWEEN_COLLECT=10000
       - INFLUX=influx
     logging:
