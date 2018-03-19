@@ -1,3 +1,3 @@
-WIO_ACCESS_TOKEN=f6149b5bf8c97461ee2adf0731caf995
-WIO_SERVER_URL=https://us.wio.seeed.io/v1/node/
-MS_BETWEEN_COLLECT=10000
+# Wio Stat Gatherer
+
+_This is a simple node application to make a request to a wio board and send the results to an influxdb database_
